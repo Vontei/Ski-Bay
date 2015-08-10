@@ -5,12 +5,14 @@ var store = require('../models/index.js')
 
 
 router.get('/', function(req, res, next) {
-  store.Products.showProduct().then(function(data){
-  res.render('index', {products: data});
+  store.Products.showProduct().then(function(products){
+  res.render('index', {products: products});
   })
 });
 
-router.post('/add', function(req,res,next){
+
+
+router.post('/new', function(req,res,next){
   store.Products.createProduct(
     req.body.user,
     req.body.brand,
@@ -23,6 +25,11 @@ router.post('/add', function(req,res,next){
   res.redirect('/')
 })
 
+
+
+router.get('/new',function(req,res,next){
+  res.render('new')
+})
 
 
 router.get('update/:id', function(req,res,next){

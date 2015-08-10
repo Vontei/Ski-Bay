@@ -1,0 +1,28 @@
+extends layout
+
+block content
+
+  h1 NewUp an entry
+  form(action='/new' method='post')
+    label User 
+    input(type='text' name='user')
+    label category 
+    select(id='category' name='category')
+      option(name='category' value='ski') ski
+      option(value='binding' name='category') binding
+      option(valye='boot' name='category')
+    label Name
+    input(type='text' name='name')
+    label Select a Brand
+    select(id='brand' name='brand')
+      option(name='brand' value='atomic') Atomic
+      option(name='brand' value='line') line
+      option(name='brand' value='k2') k2
+    label Select a Size
+    select(name='size') 
+      option(value='169') 169
+      option(value='174') 174
+      option(value='182') 182
+      option(value='186') 186
+    textarea(name='description')
+    input(type='submit' value='Submit')
