@@ -1,4 +1,3 @@
-//create a category model
 var mongoose = require('mongoose')
 var exports = module.exports
 
@@ -10,11 +9,9 @@ var categorySchema = new mongoose.Schema({
   password: String,
   ObservIds: Array,
   Comments: Array
-
 })
-var Categories = mongoose.model('Category', cateorySchema);
 
-
+var Categories = mongoose.model('Category', categorySchema);
 
 
 
@@ -24,16 +21,3 @@ exports.addCategory = function(name, brand_id){
   })
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = User;

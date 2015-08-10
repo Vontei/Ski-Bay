@@ -1,5 +1,3 @@
-//create a product model
-//create a category model
 var mongoose = require('mongoose')
 
 var productSchema = new mongoose.Schema({
@@ -14,6 +12,8 @@ var productSchema = new mongoose.Schema({
 var Products = mongoose.model('Products', productSchema);
 
 var exports = module.exports
+
+
 
 
 

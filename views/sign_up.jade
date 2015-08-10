@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+
+  h1 Sign Up for a Ski Bay Account
+  p Post, earn, buy.
+  
+  form(action='/user/new' method='post')
+    label UserName
+    input(type='text' name='user_name')
+    label email
+    input(type='text' name='email')
+    label password
+    input(type='password' name='password')
+    label Confirm password
+    input(type='password' name='confirm')
+    input(type='submit' value='Start Shopping')

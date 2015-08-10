@@ -5,7 +5,7 @@ var Brand = new mongoose.Schema({
   product_ids: Array,
 })
 
-var Brands = mongoose.model('Brands', BrandSchema)
+var Brands = mongoose.model('Brands', Brand)
 
 
 
