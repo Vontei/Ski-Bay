@@ -30,10 +30,13 @@ exports.createProduct = function(seller, brand_id, cat_id, size, name, descripti
 }
 
 
-exports.showProduct = function(){
+exports.allProduct = function(){
    return Products.find({})
 }
 
+exports.showProduct = function(id){
+  return Products.findOne({_id: id})
+}
 
 
 

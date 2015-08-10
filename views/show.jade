@@ -1,0 +1,14 @@
+extends layout
+
+block content
+
+  h1
+    a(href='/') Home
+  h2 #{product.brand_id}
+    | #{product.name}
+  p= product.description
+  p= product.size
+  h3 Sold by: #{product.seller}
+
+
+///if the req.session.user === seller.. then you can updata

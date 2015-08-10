@@ -1,9 +1,10 @@
 extends layout
 
 block content
-
   h1 SkiBay
   h1 THis is the index page
+  h3    
+    a(href='/new') NEW UP
   ul
     li it contains information about el nino 
     li it shows a desciptive paragraph about the page and the store and the winters
@@ -12,12 +13,13 @@ block content
     li You can click on Categories, it shows you the brands in the category
     li
     li CLick on Brand, it shows the products in that BRand 
-    li 
-      a(href='/new') NEW UP
+  
     
   each val in products
     h3= val.brand_id
     p= val.name
-    p= val.description
+    p
+      a(href='/show/'+ val._id)= val.description
 
+//you can only new up if you are logged in
   

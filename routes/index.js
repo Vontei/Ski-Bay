@@ -5,7 +5,7 @@ var store = require('../models/index.js')
 
 
 router.get('/', function(req, res, next) {
-  store.Products.showProduct().then(function(products){
+  store.Products.allProduct().then(function(products){
   res.render('index', {products: products});
   })
 });
@@ -20,7 +20,7 @@ router.post('/new', function(req,res,next){
     req.body.size,
     req.body.name,
     req.body.description,
-    'image/path'
+    'image/path/default'
   )
   res.redirect('/')
 })
@@ -29,6 +29,13 @@ router.post('/new', function(req,res,next){
 
 router.get('/new',function(req,res,next){
   res.render('new')
+})
+
+
+router.get('/show/:id',function(req,res,next){
+  store.Products.showProduct(req.params.id).then(function(product){
+  res.render('show', {product: product})
+  })
 })
 
 
