@@ -14,6 +14,8 @@ router.get('/', function(req, res, next) {
   })
 });
 
+
+
 ///login
 router.post('/login', function(req,res,next){
       var user_name = req.body.user_name;
@@ -25,6 +27,8 @@ router.post('/login', function(req,res,next){
         }
     })
 })
+
+
 
 ///logout
 router.get('/logout', function(req,res,next){
@@ -58,6 +62,8 @@ router.post('/user/new',function(req,res,next){
     res.redirect('/')
   }
 })
+
+
 
 //Get the new product page
 router.get('/product/new',function(req,res,next){
@@ -108,19 +114,19 @@ router.post('/product/new', function(req,res,next){
 
 
 
-// router.get('/confirm',function(req,res,next){
-//   store.Users.findOne({user_name: req.session.user}).then(function(user){
-//     store.Products.findOne({seller: user._id}).then(function(product){
-//       user.cart.push(product._id)
-//       res.render('confirm', {user: user, product: product})
-//     })
-//   })
-// })
 
+
+///Get the profile
 
 router.get('/profile', function(req,res,next){
   var user = req.session.user;
   store.Users.findOne({user_name: user}).then(function(user){
+    store.Products.find({}).then(function (products) {
+      var results = products.map(function (e) {
+        // if(e.seller===)
+
+      })
+    })
 
     res.render('profile',{user: user})
   })
@@ -141,11 +147,23 @@ router.get('/show/:id',function(req,res,next){
       .then(function (seller) {
         var result = [seller,product]
         console.log(result)
-        res.render('show', {product: result[1], update: update, seller: result[0]})
+        res.render('show', {product: result[1], update: update, seller: result[0], mainid: req.params.id })
         })
       })
     })
   ])
+})
+
+
+
+///make an offer
+
+router.post('/offer/:id',function(req,res,next){
+  var productId = req.params.id;
+  var bid = req.body.bid;
+  store.Products.update({_id: req.params.id}, { $push: {offers: bid }}).then(function () {
+    res.redirect('/')
+  })
 })
 
 

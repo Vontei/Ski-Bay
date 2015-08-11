@@ -22,7 +22,7 @@ block content
             img(src=product.image_path alt='pic' height='100' width='100')
 
   if !update
-    form(action='/offer' method='post')
+    form(action='/offer/'+mainid , method='post')
       div.form-group(id='offer')
         label Bid
         input.form-control(type='number' name='bid')
