@@ -88,7 +88,7 @@ router.post('/product/new', function(req,res,next){
       name: req.body.name,
       size: req.body.size,
       description: req.body.description,
-      image_path: req.body.image || 'image/path/default',
+      image_path: req.body.image || 'https://s-media-cache-ak0.pinimg.com/236x/71/0e/74/710e743f58787efea59b684855b3f706.jpg',
       category_id: [req.body.category]
     })
   })

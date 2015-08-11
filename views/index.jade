@@ -36,7 +36,8 @@ block content
           a(href='/show/'+ val._id)= val.brand_id + " " + val.name
       ul
         li
-          img(src=val.image_path alt='pic')
+          if val.image_path
+          img(src=val.image_path alt='pic' height='200' width='200')
         li= val.size
         li= val.description
 
