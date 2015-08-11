@@ -3,13 +3,16 @@ extends layout
 block content
   if name
     h2 Welcome #{name}
-  div 
-    form(action='/login' method='post')
-      label User name
-      input(type='text' name='user_name')
-      label password
-      input(type='password' name='password')
-      input(type='submit' value='Login')
+    p
+      a(href='/profile') Profile
+  if !name
+    div 
+      form(action='/login' method='post')
+        label User name
+        input(type='text' name='user_name')
+        label password
+        input(type='password' name='password')
+        input(type='submit' value='Login')
 
   a(href='/logout') Logout    
   
@@ -20,18 +23,16 @@ block content
   ul
     li it contains information about el nino 
     li it shows a desciptive paragraph about the page and the store and the winters
-    
-  ul 
     li You can click on Categories, it shows you the brands in the category
-    li
     li CLick on Brand, it shows the products in that BRand 
   a(href='/user/new') Sign Up
   if products  
     each val in products
-      h3= val.brand_id
-      p= val.name
-      p
-        a(href='/show/'+ val._id)= val.description
+      h3
+          a(href='/show/'+ val._id)= val.brand_id + " " + val.name
+      ul
+        li= val.size
+        li= val.description
 
 //you can only new up if you are logged in
   

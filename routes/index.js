@@ -8,10 +8,8 @@ var bcrypt = require('bcryptjs')
 
 ///Get the home page
 router.get('/', function(req, res, next) {
-  if(req.session.user){
-    var user = req.session.user
-  }
   store.Products.allProduct().then(function(products){
+    var user = req.session.user;
     res.render('index', {products: products, name: user});
   })
 });
@@ -36,19 +34,6 @@ router.get('/logout', function(req,res,next){
 
 
 
-//Post the new product
-router.post('/product/new', function(req,res,next){
-  store.Products.createProduct(
-    req.body.user,
-    req.body.brand,
-    req.body.category,
-    req.body.size,
-    req.body.name,
-    req.body.description,
-    'image/path/default'
-  )
-  res.redirect('/')
-})
 
 ///Get the sign up page
 router.get('/user/new',function(req,res,next){
@@ -59,9 +44,7 @@ router.get('/user/new',function(req,res,next){
 ////Create a user
 router.post('/user/new',function(req,res,next){
   var password = req.body.password;
-  console.log(password)
   var hash = bcrypt.hashSync(password, 8);
-  console.log(hash)
   if(password != req.body.confirm){
     res.render('sign_up', {error: "Passwords do not match"})
   }
@@ -76,11 +59,54 @@ router.post('/user/new',function(req,res,next){
   }
 })
 
-
-
 //Get the new product page
-router.get('/new',function(req,res,next){
-  res.render('new')
+router.get('/product/new',function(req,res,next){
+  if(req.session.user){
+    store.Users.findOne({user_name: req.session.user}).then(function(user){
+      res.render('new', {user: user, id: user._id})
+    })
+  }
+})
+
+
+router.get('/confirm',function(req,res,next){
+  store.Users.findOne({user_name: req.session.user}).then(function(user){
+    console.log(user)
+    store.Products.findOne({seller: user._id}).then(function(product){
+      console.log(product)
+      user.cart.push(product._id)
+      res.render('confirm', {user: user, product: product})
+    })
+  })
+})
+
+
+//Post the new product
+router.post('/product/new', function(req,res,next){
+  store.Users.findOne({user_name: req.session.user}).then(function(user){
+    store.Products.createProduct(
+      user._id,
+      req.body.brand,
+      req.body.category,
+      req.body.size,
+      req.body.name,
+      req.body.description,
+      'image/path/default'
+    )
+  res.redirect('/confirm')
+})
+})
+
+
+
+
+
+router.get('/profile', function(req,res,next){
+  var user = req.session.user;
+  store.Users.findOne({user_name: user}).then(function(user){
+    res.render('profile',{user: user})
+  })
+
 })
 
 

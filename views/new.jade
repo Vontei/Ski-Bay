@@ -3,26 +3,34 @@ extends layout
 block content
 
   h1 NewUp an entry
-  form(action='/new' method='post')
-    label User 
-    input(type='text' name='user')
-    label category 
-    select(id='category' name='category')
-      option(name='category' value='ski') ski
-      option(value='binding' name='category') binding
-      option(valye='boot' name='category')
-    label Name
-    input(type='text' name='name')
-    label Select a Brand
-    select(id='brand' name='brand')
-      option(name='brand' value='atomic') Atomic
-      option(name='brand' value='line') line
-      option(name='brand' value='k2') k2
-    label Select a Size
-    select(name='size') 
-      option(value='169') 169
-      option(value='174') 174
-      option(value='182') 182
-      option(value='186') 186
-    textarea(name='description')
-    input(type='submit' value='Submit')
+  if user
+    input(type='hidden' value=id name='postId')
+    form(action='/product/new' method='post')
+      label User 
+      input(type='text' name='user' value=user.user_name)
+      label category 
+      select(id='category' name='category')
+        option(name='category' value='ski') Skis
+        option(value='binding' name='category') Bindings
+        option(valye='boot' name='category') Boots
+      label Select a Brand
+      select(id='brand' name='brand')
+        option(name='brand' value='atomic') Atomic
+        option(name='brand' value='line') Line
+        option(name='brand' value='blizzard') Blizzard
+        option(name='brand' value='volkl') Volkl
+        option(name='brand' value='k2') k2
+        option(name='brand' value='rossignol') Rossignol
+        option(name='brand' value='dynastar') Dynastar
+        option(name='brand' value='fischer') Fischer
+        option(name='brand' value='kastle') Kastle
+        option(name='brand' value='lib') Lib
+        option(name='brand' value='moment') Moment
+        option(name='brand' value='nordica') Nordica
+        option(name='brand' value='salomon') Salomon
+      label Product Name
+      input(type='text' name='name')
+      label Select a Size
+      input(type='number' name='size')
+      textarea(name='description') Description of your item for sale
+      input(type='submit' value='Submit')
