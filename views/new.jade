@@ -7,30 +7,22 @@ block content
     input(type='hidden' value=id name='postId')
     form(action='/product/new' method='post')
       label User 
-      input(type='text' name='user' value=user.user_name)
-      label category 
-      select(id='category' name='category')
-        option(name='category' value='ski') Skis
-        option(value='binding' name='category') Bindings
-        option(valye='boot' name='category') Boots
-      label Select a Brand
-      select(id='brand' name='brand')
-        option(name='brand' value='atomic') Atomic
-        option(name='brand' value='line') Line
-        option(name='brand' value='blizzard') Blizzard
-        option(name='brand' value='volkl') Volkl
-        option(name='brand' value='k2') k2
-        option(name='brand' value='rossignol') Rossignol
-        option(name='brand' value='dynastar') Dynastar
-        option(name='brand' value='fischer') Fischer
-        option(name='brand' value='kastle') Kastle
-        option(name='brand' value='lib') Lib
-        option(name='brand' value='moment') Moment
-        option(name='brand' value='nordica') Nordica
-        option(name='brand' value='salomon') Salomon
+      input(type='text' name='user' value=user.user_name)    
+      label Select a category
+      select(id='category' name='category' multiple)
+        option(name='category' value='55ca1dcfc33efe1935fa4191') Skis
+        option(name='category' value='55ca1dd8c33efe1935fa4192') Bindings
+        option(name='category' value='55ca1de2c33efe1935fa4193') Boots
+        option(name='category' value='55ca1d4bc33efe1935fa418e') Atomic
+        option(name='category' value='55ca1d9bc33efe1935fa418f') Line
+        option(name='category' value='55ca1da7c33efe1935fa4190') Moment
+        option(name='category' value='55ca1dfbc33efe1935fa4194') k2
+        option(name='category' value='55ca1e0fc33efe1935fa4195') Salomon
       label Product Name
       input(type='text' name='name')
       label Select a Size
       input(type='number' name='size')
       textarea(name='description') Description of your item for sale
+      label Link To Image
+      input(type='text' name='image')
       input(type='submit' value='Submit')

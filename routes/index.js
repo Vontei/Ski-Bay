@@ -8,7 +8,7 @@ var bcrypt = require('bcryptjs')
 
 ///Get the home page
 router.get('/', function(req, res, next) {
-  store.Products.allProduct().then(function(products){
+  store.Products.find({}).then(function(products){
     var user = req.session.user;
     res.render('index', {products: products, name: user});
   })
@@ -71,9 +71,7 @@ router.get('/product/new',function(req,res,next){
 
 router.get('/confirm',function(req,res,next){
   store.Users.findOne({user_name: req.session.user}).then(function(user){
-    console.log(user)
     store.Products.findOne({seller: user._id}).then(function(product){
-      console.log(product)
       user.cart.push(product._id)
       res.render('confirm', {user: user, product: product})
     })
@@ -83,17 +81,36 @@ router.get('/confirm',function(req,res,next){
 
 //Post the new product
 router.post('/product/new', function(req,res,next){
-  store.Users.findOne({user_name: req.session.user}).then(function(user){
-    store.Products.createProduct(
-      user._id,
-      req.body.brand,
-      req.body.category,
-      req.body.size,
-      req.body.name,
-      req.body.description,
-      'image/path/default'
-    )
+  store.Users.findOne({user_name: req.session.user})
+  .then(function(user){
+    store.Products.create({
+      seller: user._id,
+      name: req.body.name,
+      size: req.body.size,
+      description: req.body.description,
+      image_path: req.body.image || 'image/path/default',
+      category_id: [req.body.category]
+    })
+  })
+  .then(function(){
+      return store.Products.findOne({description: req.body.description})
+  })
+  .then(function(product){
+    store.Categories.find({})
+    .then(function(cats){
+      for(i=0;i<cats.length;i++){
+        for(j=0;j<product.category_id.length;j++){
+          if(cats[i]._id.toString() === product.category_id[j]){
+            store.Categories.findOne({_id: cats[i]._id})
+            .then(function (cat) {
+              cat.productIds.push(product._id);
+              return store.Categories.update({_id: cat._id}, { $push: {productIds: product._id }})
+            })
+          }
+        }
+      }
   res.redirect('/confirm')
+    })
 })
 })
 
@@ -114,7 +131,7 @@ router.get('/profile', function(req,res,next){
 router.get('/show/:id',function(req,res,next){
   var update = false
   store.Users.findOne({user_name: req.session.user}).then(function (user) {
-    store.Products.showProduct(req.params.id).then(function(product){
+    store.Products.findOne({_id: req.params.id}).then(function(product){
       if(product.seller.toString() === user._id.toString()){
          update = true
       }

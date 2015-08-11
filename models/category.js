@@ -1,23 +1,12 @@
 var mongoose = require('mongoose')
-var exports = module.exports
+
 
 
 var categorySchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  password: String,
-  ObservIds: Array,
-  Comments: Array
+  name: String,
+  productIds: Array,
 })
 
-var Categories = mongoose.model('Category', categorySchema);
+var Categories = mongoose.model('Categories', categorySchema);
 
-
-
-exports.addCategory = function(name, brand_id){
-  var name = Categories.create({
-
-  })
-
-}
+module.exports = Categories
