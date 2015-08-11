@@ -112,8 +112,14 @@ router.get('/profile', function(req,res,next){
 
 ///get the product show page
 router.get('/show/:id',function(req,res,next){
-  store.Products.showProduct(req.params.id).then(function(product){
-  res.render('show', {product: product})
+  var update = false
+  store.Users.findOne({user_name: req.session.user}).then(function (user) {
+    store.Products.showProduct(req.params.id).then(function(product){
+      if(product.seller.toString() === user._id.toString()){
+         update = true
+      }
+    res.render('show', {product: product, update: update})
+    })
   })
 })
 
@@ -127,9 +133,22 @@ router.get('/delete/:id', function(req,res,next){
 
 //get the product update page. only if user is the same and req.session.user
 
-router.get('update/:id', function(req,res,next){
-  product.update(req.params.id, req.brand_id, req.cat_id, req.sizes, req.name, req.description, req.price);
-  res.redirect('/')
+router.get('/update/:id', function(req,res,next){
+  // product.update(req.params.id, req.brand_id, req.cat_id, req.sizes, req.name, req.description, req.price);
+  res.render('update')
+})
+
+
+router.get('/atomic',function(req,res,next){
+  store.Products.find({}).then(function(products){
+    var brands = products.map(function(product){
+      return product.brand_id
+    })
+    store.Category.find({_id: {$in: brands}}).then(function(results){
+    var user = req.session.user;
+    res.render('index', {products: products, name: user});
+    })
+})
 })
 
 

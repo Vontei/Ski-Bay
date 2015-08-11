@@ -15,9 +15,7 @@ var exports = module.exports
 
 
 
-exports.remove = function(id){
-  return Products.remove({_id: id});
-}
+
 
 exports.createProduct = function(seller, brand_id, cat_id, size, name, description, image_path){
   Products.create({

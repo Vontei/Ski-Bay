@@ -20,9 +20,15 @@ block content
         input(type='password' name='password')
         input(type='submit' value='Login')
 
-  
   h1 SkiBay
   h4 Items for Sale:
+  div.navbar
+    ul
+      li 
+        a(href='/atomic') Atomic
+      li
+        a(href='/blizzard') Blizzard
+
 
   if products  
     each val in products
