@@ -69,14 +69,6 @@ router.get('/product/new',function(req,res,next){
 })
 
 
-router.get('/confirm',function(req,res,next){
-  store.Users.findOne({user_name: req.session.user}).then(function(user){
-    store.Products.findOne({seller: user._id}).then(function(product){
-      user.cart.push(product._id)
-      res.render('confirm', {user: user, product: product})
-    })
-  })
-})
 
 
 //Post the new product
@@ -109,18 +101,27 @@ router.post('/product/new', function(req,res,next){
           }
         }
       }
-  res.redirect('/confirm')
+  res.redirect('/')
     })
 })
 })
 
 
 
+// router.get('/confirm',function(req,res,next){
+//   store.Users.findOne({user_name: req.session.user}).then(function(user){
+//     store.Products.findOne({seller: user._id}).then(function(product){
+//       user.cart.push(product._id)
+//       res.render('confirm', {user: user, product: product})
+//     })
+//   })
+// })
 
 
 router.get('/profile', function(req,res,next){
   var user = req.session.user;
   store.Users.findOne({user_name: user}).then(function(user){
+
     res.render('profile',{user: user})
   })
 
@@ -130,23 +131,37 @@ router.get('/profile', function(req,res,next){
 ///get the product show page
 router.get('/show/:id',function(req,res,next){
   var update = false
-  store.Users.findOne({user_name: req.session.user}).then(function (user) {
-    store.Products.findOne({_id: req.params.id}).then(function(product){
-      if(product.seller.toString() === user._id.toString()){
-         update = true
-      }
-    res.render('show', {product: product, update: update})
+  var results = Promise.all([
+    store.Users.findOne({user_name: req.session.user})
+      .then(function (user) {
+        store.Products.findOne({_id: req.params.id})
+      .then(function(product){
+        if(product.seller.toString() === user._id.toString()){update = true;}
+        store.Users.findOne({_id: product.seller})
+      .then(function (seller) {
+        var result = [seller,product]
+        console.log(result)
+        res.render('show', {product: result[1], update: update, seller: result[0]})
+        })
+      })
     })
-  })
+  ])
 })
 
 
+
+
+///delete a product
 router.get('/delete/:id', function(req,res,next){
   store.Products.remove({_id: req.params.id}).then(function(){
     console.log('hi')
   res.redirect('/')
   })
 });
+
+
+
+
 
 //get the product update page. only if user is the same and req.session.user
 
@@ -156,6 +171,9 @@ router.get('/update/:id', function(req,res,next){
 })
 
 
+
+
+//get each brand????
 router.get('/atomic',function(req,res,next){
   store.Products.find({}).then(function(products){
     var brands = products.map(function(product){

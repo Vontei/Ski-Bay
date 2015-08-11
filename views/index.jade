@@ -2,15 +2,18 @@ extends layout
 
 block content
   if name
-    h2 Welcome #{name}
-    p
-      a(href='/profile') Profile
-    p  
-      a(href='/product/new') NEW UP
-    p  
-      a(href='/logout') Logout    
-    p  
-      a(href='/user/new') Sign Up
+    div(class='navbar navbar-inverse navbar-fixed-top')
+      div.container
+        h2.welcome Welcome to SkiBay #{name}
+        ul(class='nav navbar-nav')
+          li
+            a(href='/profile') Profile
+          li  
+            a(href='/product/new') Sell 
+          li
+            a(href='/logout') Logout    
+          li
+            a(href='/user/new') Sign Up
   if !name
     div 
       form(action='/login' method='post')
@@ -19,27 +22,34 @@ block content
         label password
         input(type='password' name='password')
         input(type='submit' value='Login')
-
   h1 SkiBay
-  h4 Items for Sale:
-  div.navbar
-    ul
-      li 
-        a(href='/atomic') Atomic
-      li
-        a(href='/blizzard') Blizzard
-
-
-  if products  
-    each val in products
-      h3
-          a(href='/show/'+ val._id)= val.brand_id + " " + val.name
-      ul
+  h4 Sort By:
+  div(class='navbar navbar-inverse')
+    div.container
+      ul(class='nav navbar-nav')
+        li 
+          a(href='/atomic') Atomic
         li
-          if val.image_path
-          img(src=val.image_path alt='pic' height='200' width='200')
-        li= val.size
-        li= val.description
+          a(href='/blizzard') Blizzard
+  if products  
+      div.row
+        table(class='table table-hover')
+          thead
+            th Name
+            th Categories
+            th Size
+            th Desription
+            th Image
+          tbody
+          each val in products
+            tr
+              td
+                a(href='/show/'+ val._id)=  val.name
+              td= val.category_id
+              td= val.size
+              td= val.description
+              td
+                img(src=val.image_path alt='pic' height='50' width='50')
+        
 
-//you can only new up if you are logged in
   

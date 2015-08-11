@@ -8,6 +8,29 @@ a {
 }
 
 footer{
-  position: relative;
+  position: fixed;
   bottom: 0;
+}
+
+.row{
+  margin-left: 5em;
+}
+
+.form-group{
+  padding-top: 20px;
+  width: 50%;
+}
+
+.welcome{
+  color: white;
+}
+
+#offer{
+  width: 25%;
+  margin: 0 auto;
+  font-size: 25px;
+}
+
+#showOffer{
+  font-size: 20px;
 }

@@ -2,17 +2,21 @@ extends layout
 
 block content
 
-
+  a(href='/') Home
   h1 Sign Up for a Ski Bay Account
   p Post, earn, buy.
   
   form(action='/user/new' method='post')
-    label UserName
-    input(type='text' name='user_name')
-    label email
-    input(type='text' name='email')
-    label password
-    input(type='password' name='password')
-    label Confirm password
-    input(type='password' name='confirm')
-    input(type='submit' value='Start Shopping')
+    div.form-group
+      label User Name
+      input.form-control(type='text' name='user_name')
+    div.form-group
+      label Email 
+      input.form-control(type='text' name='email')
+    div.form-group
+      label Password
+      input.form-control(type='password' name='password')
+    div.form-group
+      label Confirm Password
+      input.form-control(type='password' name='confirm')
+    input(class='btn btn-default' type='submit' value='Start Shopping')
