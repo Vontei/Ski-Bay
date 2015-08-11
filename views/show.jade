@@ -9,6 +9,6 @@ block content
   p= product.description
   p= product.size
   h3 Sold by: #{product.seller}
-
+  a(href='/delete/' + product._id) Delete
 
 ///if the req.session.user === seller.. then you can updata

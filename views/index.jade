@@ -5,6 +5,12 @@ block content
     h2 Welcome #{name}
     p
       a(href='/profile') Profile
+    p  
+      a(href='/product/new') NEW UP
+    p  
+      a(href='/logout') Logout    
+    p  
+      a(href='/user/new') Sign Up
   if !name
     div 
       form(action='/login' method='post')
@@ -14,18 +20,10 @@ block content
         input(type='password' name='password')
         input(type='submit' value='Login')
 
-  a(href='/logout') Logout    
   
   h1 SkiBay
-  h1 THis is the index page
-  h3    
-    a(href='/product/new') NEW UP
-  ul
-    li it contains information about el nino 
-    li it shows a desciptive paragraph about the page and the store and the winters
-    li You can click on Categories, it shows you the brands in the category
-    li CLick on Brand, it shows the products in that BRand 
-  a(href='/user/new') Sign Up
+  h4 Items for Sale:
+
   if products  
     each val in products
       h3

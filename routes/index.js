@@ -118,6 +118,13 @@ router.get('/show/:id',function(req,res,next){
 })
 
 
+router.get('/delete/:id', function(req,res,next){
+  store.Products.remove({_id: req.params.id}).then(function(){
+    console.log('hi')
+  res.redirect('/')
+  })
+});
+
 //get the product update page. only if user is the same and req.session.user
 
 router.get('update/:id', function(req,res,next){
