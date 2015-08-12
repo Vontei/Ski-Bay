@@ -42,8 +42,13 @@ footer{
 #login{
   float:right;
   width:50%;
+  color: white;
 }
 
 #categorybar{
   margin-top:75px;
+}
+
+#fixbar{
+
 }

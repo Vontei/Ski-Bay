@@ -23,14 +23,19 @@ block content
           li
             a(href='/blizzard') Blizzard
   if !name
-    form.form-inline(action='/login' method='post' id='login')
-      div.form-group
-        label User_Name
-        input.form-control(type='text' name='user_name')
-      div.form-group
-        label Password 
-        input.form-control(type='password' name='password')
-        input.form-control(type='submit' value='Login' class='btn btn-default')
+    div(class='navbar navbar-inverse navbar-fixed-top' id='fixbar')
+      form.form-inline(action='/login' method='post' id='login')
+        div.form-group
+          label User_Name
+          input.form-control(type='text' name='user_name')
+        div.form-group
+          label Password 
+          input.form-control(type='password' name='password')
+          input.form-control(type='submit' value='Login' class='btn btn-default')
+      div.container
+        ul(class='nav navbar-nav')    
+          li
+            a(href='/user/new') Sign Up
     h1 SkiBay
   
   div(id='indexlist')
