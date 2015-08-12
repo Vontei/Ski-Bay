@@ -113,15 +113,52 @@ router.post('/product/new', function(req,res,next){
 })
 
 
+
+
+
 ///Get Directory
+  // var category = [
+  //   {
+  //     name: 'skis',
+  //     products: [ {name: 'access', id: 'id'}, {name: 'marker',id:  'id'} ]
+  //   }
+  // ]
+  //
+  // var result = {
+  //   name: String,
+  //   products: Array
+  // }
+  //
+  // var product = {
+  //   name: 'productName',
+  //   id: 'productId'
+  // }
 router.get('/product/directory', function(req,res,next){
-  res.render('directory')
+
+
+store.Categories.find({})
+  .then(function (categories) {
+    var obj = categories.map(function (e) {
+        var result = {}
+        result.name = e.name
+        result.products = []
+        for(i=0;i<e.productIds.length;i++){
+          result.products.push(e.productIds[i])
+          store.Products.find({_id: e.productIds[i]}, function(err,data){
+            result.products.push(data)
+          })
+        }
+    console.log(result)
+    })
+  })
+        res.render('directory')
+
 })
 
 
 
-///Get the profile
 
+///Get the profile
 router.get('/profile', function(req,res,next){
   var user = req.session.user;
   store.Users.findOne({user_name: user}).then(function(user){

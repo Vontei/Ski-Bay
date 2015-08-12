@@ -4,4 +4,8 @@ block content
 
 
   h1 Directory
-  p #{results}
+  //- each val in category
+  //-   p= val.name 
+  //-   each thing in val.products
+  //-     p
+  //-       a(href='/show/'+id)= thing.name
