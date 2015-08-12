@@ -113,6 +113,10 @@ router.post('/product/new', function(req,res,next){
 })
 
 
+///Get Directory
+router.get('/product/directory', function(req,res,next){
+  res.render('directory')
+})
 
 
 
