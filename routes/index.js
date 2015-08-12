@@ -33,7 +33,7 @@ router.post('/login', function(req,res,next){
 ///logout
 router.get('/logout', function(req,res,next){
   req.session = null;
-  res.render('index')
+  res.redirect('/')
 })
 
 
@@ -121,7 +121,6 @@ router.post('/product/new', function(req,res,next){
 router.get('/profile', function(req,res,next){
   var user = req.session.user;
   store.Users.findOne({user_name: user}).then(function(user){
-    console.log(user)
     store.Products.find({}).then(function (products) {
       var info= []
       for(i=0; i<products.length;i++){
@@ -138,6 +137,7 @@ router.get('/profile', function(req,res,next){
 
 ///get the product show page
 router.get('/show/:id',function(req,res,next){
+  var isSession = req.session.user
   var update = false
   var results = Promise.all([
     store.Users.findOne({user_name: req.session.user})
@@ -148,8 +148,7 @@ router.get('/show/:id',function(req,res,next){
         store.Users.findOne({_id: product.seller})
       .then(function (seller) {
         var result = [seller,product]
-        console.log(result)
-        res.render('show', {product: result[1], update: update, seller: result[0], mainid: req.params.id })
+        res.render('show', {product: result[1], update: update, seller: result[0], mainid: req.params.id, session: isSession})
         })
       })
     })
@@ -174,7 +173,6 @@ router.post('/offer/:id',function(req,res,next){
 ///delete a product
 router.get('/delete/:id', function(req,res,next){
   store.Products.remove({_id: req.params.id}).then(function(){
-    console.log('hi')
   res.redirect('/')
   })
 });
@@ -186,7 +184,6 @@ router.get('/delete/:id', function(req,res,next){
 //get the product update page. only if user is the same and req.session.user
 
 router.get('/update/:id', function(req,res,next){
-  // product.update(req.params.id, req.brand_id, req.cat_id, req.sizes, req.name, req.description, req.price);
   res.render('update')
 })
 

@@ -34,3 +34,16 @@ footer{
 #showOffer{
   font-size: 20px;
 }
+
+#indexlist{
+  overflow: scroll;
+}
+
+#login{
+  float:right;
+  width:50%;
+}
+
+#categorybar{
+  margin-top:75px;
+}
