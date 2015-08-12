@@ -6,4 +6,26 @@ block content
     a(href='/') Home 
   h1 Profile Page
     p= user.user_name
-    p= user.cart
+    
+  div.row
+    h3 You have  #{info.length} items for sale:
+    table(class='table table-hover')
+      thead
+        th Name
+        th Offers
+        th Description
+        th Size 
+        th Image
+      tbody
+      each val in info
+        tr
+          td
+            a(href='/show/'+val._id)= val.name
+          td= val.offers
+          td= val.description
+          td= val.size
+          td
+            img(src=val.image_path alt='pic' height='50' width='50')
+        
+  
+  

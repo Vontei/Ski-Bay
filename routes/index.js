@@ -121,14 +121,16 @@ router.post('/product/new', function(req,res,next){
 router.get('/profile', function(req,res,next){
   var user = req.session.user;
   store.Users.findOne({user_name: user}).then(function(user){
+    console.log(user)
     store.Products.find({}).then(function (products) {
-      var results = products.map(function (e) {
-        // if(e.seller===)
-
-      })
+      var info= []
+      for(i=0; i<products.length;i++){
+        if(products[i].seller.toString()===user._id.toString()){
+          info.push(products[i])
+        }
+      }
+    res.render('profile',{user: user, info: info})
     })
-
-    res.render('profile',{user: user})
   })
 
 })
