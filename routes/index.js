@@ -3,14 +3,14 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var store = require('../models/index.js')
 var bcrypt = require('bcryptjs')
-
+var logic = require('../lib/logic.js')
 
 
 ///Get the home page
 router.get('/', function(req, res, next) {
-  store.Products.find({}).then(function(products){
-    var user = req.session.user;
-    res.render('index', {products: products, name: user});
+  var user = req.session.user
+  logic.findAllProducts().then(function (products) {
+    res.render('index', {products: products, name: user})
   })
 });
 
@@ -20,12 +20,12 @@ router.get('/', function(req, res, next) {
 router.post('/login', function(req,res,next){
       var user_name = req.body.user_name;
       var password = req.body.password;
-      store.Users.findOne({user_name: user_name}).then(function (user) {
+      logic.getUserByName(user_name).then(function (user) {
         if (bcrypt.compareSync(password, user.password)) {
           req.session.user = user.user_name
           res.redirect('/');
         }
-    })
+      })
 })
 
 
@@ -53,12 +53,7 @@ router.post('/user/new',function(req,res,next){
     res.render('sign_up', {error: "Passwords do not match"})
   }
   if(password === req.body.confirm) {
-    store.Users.create({
-      user_name: req.body.user_name,
-      email: req.body.email,
-      password: hash,
-      cart: []
-    })
+    logic.addUser(req.body.user_name, req.body.email, hash)
     res.redirect('/')
   }
 })
@@ -68,7 +63,7 @@ router.post('/user/new',function(req,res,next){
 //Get the new product page
 router.get('/product/new',function(req,res,next){
   if(req.session.user){
-    store.Users.findOne({user_name: req.session.user}).then(function(user){
+    logic.getUserByName(req.session.user).then(function(user){
       res.render('new', {user: user, id: user._id})
     })
   }
@@ -81,28 +76,22 @@ router.get('/product/new',function(req,res,next){
 router.post('/product/new', function(req,res,next){
   store.Users.findOne({user_name: req.session.user})
   .then(function(user){
-    store.Products.create({
-      seller: user._id,
-      name: req.body.name,
-      size: req.body.size,
-      description: req.body.description,
-      image_path: req.body.image || 'https://s-media-cache-ak0.pinimg.com/236x/71/0e/74/710e743f58787efea59b684855b3f706.jpg',
-      category_id: [req.body.category]
-    })
+    logic.addProduct(user._id, req.body.name, req.body.size, req.body.description,
+    req.body.image, req.body.category)
   })
   .then(function(){
-      return store.Products.findOne({description: req.body.description})
+      return logic.findProductByDesc(req.body.description)
   })
   .then(function(product){
-    store.Categories.find({})
+    logic.findAllCategories()
     .then(function(cats){
       for(i=0;i<cats.length;i++){
         for(j=0;j<product.category_id.length;j++){
           if(cats[i]._id.toString() === product.category_id[j]){
-            store.Categories.findOne({_id: cats[i]._id})
+          logic.findCategory(cats[i]._id)
             .then(function (cat) {
               cat.productIds.push(product._id);
-              return store.Categories.update({_id: cat._id}, { $push: {productIds: product._id }})
+              return logic.addProductToCategory(cat._id, product._id)
             })
           }
         }
@@ -134,8 +123,7 @@ router.post('/product/new', function(req,res,next){
   //   id: 'productId'
   // }
 router.get('/product/directory', function(req,res,next){
-
-
+var answer = []
 store.Categories.find({})
   .then(function (categories) {
     var obj = categories.map(function (e) {
@@ -143,16 +131,16 @@ store.Categories.find({})
         result.name = e.name
         result.products = []
         for(i=0;i<e.productIds.length;i++){
-          result.products.push(e.productIds[i])
-          store.Products.find({_id: e.productIds[i]}, function(err,data){
-            result.products.push(data)
+          store.Products.find({_id: e.productIds[i]}).then(function (product) {
+            console.log(product[0].name)
+            result.products.push(product[0].name)
           })
         }
-    console.log(result)
+      answer.push(result)
     })
+    console.log(answer)
   })
-        res.render('directory')
-
+  res.render('directory')
 })
 
 
@@ -161,8 +149,10 @@ store.Categories.find({})
 ///Get the profile
 router.get('/profile', function(req,res,next){
   var user = req.session.user;
-  store.Users.findOne({user_name: user}).then(function(user){
-    store.Products.find({}).then(function (products) {
+  logic.getUserByName(user)
+  .then(function(user){
+    logic.findAllProducts()
+    .then(function (products) {
       var info= []
       for(i=0; i<products.length;i++){
         if(products[i].seller.toString()===user._id.toString()){
@@ -181,12 +171,12 @@ router.get('/show/:id',function(req,res,next){
   var isSession = req.session.user
   var update = false
   var results = Promise.all([
-    store.Users.findOne({user_name: req.session.user})
+      logic.getUserByName(req.session.user)
       .then(function (user) {
-        store.Products.findOne({_id: req.params.id})
+        logic.findProductById(req.params.id)
       .then(function(product){
         if(product.seller.toString() === user._id.toString()){update = true;}
-        store.Users.findOne({_id: product.seller})
+        logic.getUserById(product.seller)
       .then(function (seller) {
         var result = [seller,product]
         res.render('show', {product: result[1], update: update, seller: result[0], mainid: req.params.id, session: isSession})
@@ -203,7 +193,7 @@ router.get('/show/:id',function(req,res,next){
 router.post('/offer/:id',function(req,res,next){
   var productId = req.params.id;
   var bid = req.body.bid;
-  store.Products.update({_id: req.params.id}, { $push: {offers: bid }}).then(function () {
+  logic.addOffersToProduct(productId, bid).then(function () {
     res.redirect('/')
   })
 })
@@ -213,7 +203,7 @@ router.post('/offer/:id',function(req,res,next){
 
 ///delete a product
 router.get('/delete/:id', function(req,res,next){
-  store.Products.remove({_id: req.params.id}).then(function(){
+  logic.removeProduct(req.params.id).then(function(){
   res.redirect('/')
   })
 });
@@ -231,18 +221,6 @@ router.get('/update/:id', function(req,res,next){
 
 
 
-//get each brand????
-router.get('/atomic',function(req,res,next){
-  store.Products.find({}).then(function(products){
-    var brands = products.map(function(product){
-      return product.brand_id
-    })
-    store.Category.find({_id: {$in: brands}}).then(function(results){
-    var user = req.session.user;
-    res.render('index', {products: products, name: user});
-    })
-})
-})
 
 
 module.exports = router;
