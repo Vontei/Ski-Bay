@@ -8,8 +8,13 @@ var logic = require('../lib/logic.js')
 
 ///Get the home page
 router.get('/', function(req, res, next) {
-  var user = req.session.user
+  logic.alltheproduct(function(err,data){
+    console.log(data)
+  })
+  var user = req.session.user;
+  var cart = req.session.cart;
   logic.findAllProducts().then(function (products) {
+
     res.render('index', {products: products, name: user})
   })
 });
@@ -99,49 +104,76 @@ router.post('/product/new', function(req,res,next){
   res.redirect('/')
     })
 })
+
+
+
+
+
+
+
 })
 
 
 
 
 
-///Get Directory
-  // var category = [
-  //   {
-  //     name: 'skis',
-  //     products: [ {name: 'access', id: 'id'}, {name: 'marker',id:  'id'} ]
-  //   }
-  // ]
-  //
-  // var result = {
-  //   name: String,
-  //   products: Array
-  // }
-  //
-  // var product = {
-  //   name: 'productName',
-  //   id: 'productId'
-  // }
 router.get('/product/directory', function(req,res,next){
-var answer = []
-store.Categories.find({})
-  .then(function (categories) {
-    var obj = categories.map(function (e) {
-        var result = {}
-        result.name = e.name
-        result.products = []
-        for(i=0;i<e.productIds.length;i++){
-          store.Products.find({_id: e.productIds[i]}).then(function (product) {
-            console.log(product[0].name)
-            result.products.push(product[0].name)
+// var answer = [];
+// var promise = Promise.all([
+//     store.Categories.find({})
+//       .then(function (categories) {
+//         var obj = categories.map(function (e) {
+//           var result = {}
+//             result.name = e.name
+//             result.products = []
+//               for(i=0;i<e.productIds.length;i++){
+//                   store.Products.find({_id: e.productIds[i]}).then(function (product) {
+//                         result.products.push([product[0].name, product[0]._id])
+//                         answer.push(result)
+//                   })
+//               }
+//         })
+//   })
+// ])
+// .then(function (results) {
+//       console.log(results)
+//     })
+//       res.render('directory', {results: results})
+
+      var results = Promise.all([
+        logic.findAllCategories()
+        .then(function (categories) {
+          var answer = []
+          categories.forEach(function (val) {
+            var holder ={};
+            holder.name = val.name;
+            holder.products = []
+            val.productIds.forEach(function (id) {
+              logic.findProductById(id).then(function (product) {
+                holder.products.push([product.name, product._id])
+                console.log(holder)
+              })
+            })
+            answer.push(holder)
           })
-        }
-      answer.push(result)
+          return answer
+        }).then(function (thing) {
+          return thing
+        })
+      ])
+      .then(function (results) {
+      res.render('directory')
     })
-    console.log(answer)
-  })
-  res.render('directory')
 })
+
+
+
+
+
+
+
+
+
 
 
 

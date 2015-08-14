@@ -2,10 +2,18 @@ extends layout
 
 block content
   if name
+    //- h1 SkiBay
+
     div(class='navbar navbar-inverse navbar-fixed-top')
       div.container
-        h2.welcome Welcome to SkiBay #{name}
+      
+        
+        //- h2.welcome Welcome to SkiBay #{name}
         ul(class='nav navbar-nav')
+          li
+            h1 Sk
+              span i
+              | Bay
           li
             a(href='/profile') Profile
           li  
@@ -16,15 +24,16 @@ block content
             a(href='/user/new') Sign Up
           li
             a(href='/product/directory') Directory
-    h4 Sort By:
-    div(class='navbar navbar-inverse' id='categorybar')
-      div.container
-        ul(class='nav navbar-nav')
-          li 
-            a(href='/atomic') Atomic
-          li
-            a(href='/blizzard') Blizzard
+    //- h4 Sort By:
+    //- div(class='navbar navbar-inverse' id='categorybar')
+    //-   div.container
+    //-     ul(class='nav navbar-nav')
+    //-       li 
+    //-         a(href='/atomic') Atomic
+    //-       li
+    //-         a(href='/blizzard') Blizzard
   if !name
+    //- h1 SkiBay
     div(class='navbar navbar-inverse navbar-fixed-top' id='fixbar')
       form.form-inline(action='/login' method='post' id='login')
         div.form-group
@@ -35,31 +44,40 @@ block content
           input.form-control(type='password' name='password')
           input.form-control(type='submit' value='Login' class='btn btn-default')
       div.container
-        ul(class='nav navbar-nav')    
+        ul(class='nav navbar-nav')  
+          li
+            h1 Sk
+              span i
+              | Bay
           li
             a(href='/user/new') Sign Up
-    h1 SkiBay
+    //- h1 SkiBay
   
   div(id='indexlist')
-  if products  
-      div.row
-        table(class='table table-hover')
-          thead
-            th Name
-            th Categories
-            th Size
-            th Desription
-            th Image
-          tbody
-          each val in products
-            tr
-              td
-                a(href='/show/'+ val._id)=  val.name
-              td= val.category_id
-              td= val.size
-              td= val.description
-              td
-                img(src=val.image_path alt='pic' height='50' width='50')
-        
+    if products  
+        div.row
+          table(class='table table-hover')
+            thead
+              th Image
+              th Name
+              th Categories
+              th Size
+              th Desription
+            tbody
+            each val in products
+              tr
+                td
+                  img(src=val.image_path alt='pic' height='50' width='50')
+                td
+                  a(href='/show/'+ val._id)=  val.name
+                td= val.category_id
+                td= val.size
+                td= val.description
+  footer
+    if !name
+      p ® Vontei : SkiShop
+    if name
+      p Hey #{name}
 
-  
+
+    

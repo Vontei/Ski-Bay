@@ -3,14 +3,44 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+
+h1{
+color:rgb(148, 238, 17) ;
+ /*font-family: 'Pacifico', cursive;*/
+color: rgb(39, 186, 249);
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
+
+label{
+color: #939E9D;
+}
+
+span{
+color: rgb(214, 251, 31);
+}
+
 a {
-  color: #00B7FF;
+  color:rgb(89, 36, 230);
+  /*color: #00B7FF;*/
 }
 
 footer{
   position: fixed;
   bottom: 0;
+  height: 100px;
+  /*background-color: rgb(59, 208, 35);*/
+      background-color: rgb(185, 238, 27) ;
+      background-color: rgb(8, 149, 240);
+      background-color: rgb(214, 251, 31);
+
+  margin-right: 50px;
+  width: 93%;
+  text-align: center;
+  padding-top: 40px;
+
 }
+
 
 .row{
   margin-left: 5em;
@@ -36,8 +66,13 @@ footer{
 }
 
 #indexlist{
+  margin-top: 80px;
+  height: 500px;
   overflow: scroll;
 }
+
+
+
 
 #login{
   float:right;
@@ -50,5 +85,16 @@ footer{
 }
 
 #fixbar{
+padding-bottom: 10px;
+}
 
+
+
+label{
+  padding-right: 5px;
+}
+
+input{
+  background-color: black;
+  border: none;
 }

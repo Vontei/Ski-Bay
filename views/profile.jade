@@ -4,8 +4,7 @@ block content
 
   p
     a(href='/') Home 
-  h1 Profile Page
-    p= user.user_name
+  h1 Hey #{user.user_name}
     
   div.row
     h3 You have  #{info.length} items for sale:
@@ -26,6 +25,3 @@ block content
           td= val.size
           td
             img(src=val.image_path alt='pic' height='50' width='50')
-        
-  
-  
