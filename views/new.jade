@@ -2,6 +2,32 @@ extends layout
 
 block content
 
+  div(class='navbar navbar-inverse navbar-fixed-top')
+    div.container
+    
+      
+      //- h2.welcome Welcome to SkiBay #{name}
+      ul(class='nav navbar-nav')
+        li
+          h1 Sk
+            span i
+            | Bay
+        li
+          a(href='/') Home 
+        li
+          a(href='/profile') Profile
+      
+        li
+          a(href='/logout') Logout    
+        li
+          a(href='/user/new') Sign Up
+        li
+          a(href='/product/directory') Directory
+
+
+
+
+
   h1 Have some gear for sale? List it!
   a(href='/') Home
   if user

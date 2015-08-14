@@ -2,6 +2,34 @@ extends layout
 
 block content
 
+
+  div(class='navbar navbar-inverse navbar-fixed-top')
+    div.container
+    
+      
+      //- h2.welcome Welcome to SkiBay #{name}
+      ul(class='nav navbar-nav')
+        li
+          h1 Sk
+            span i
+            | Bay
+        li
+          a(href='/') Home 
+        li
+          a(href='/profile') Profile
+        li  
+          a(href='/product/new') Sell 
+        li
+          a(href='/logout') Logout    
+        li
+          a(href='/user/new') Sign Up
+        li
+          a(href='/product/directory') Directory
+
+
+
+
+
   p
     a(href='/') Home 
   h1 Hey #{user.user_name}
@@ -25,3 +53,9 @@ block content
           td= val.size
           td
             img(src=val.image_path alt='pic' height='50' width='50')
+
+  footer
+    if !name
+      p ® Vontei : SkiShop
+    if name
+      p Hey #{name}

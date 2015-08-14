@@ -8,13 +8,13 @@ var logic = require('../lib/logic.js')
 
 ///Get the home page
 router.get('/', function(req, res, next) {
-  logic.alltheproduct(function(err,data){
-    console.log(data)
-  })
+  // logic.alltheproduct(function(err,data){
+  //   console.log(data)
+  // })
   var user = req.session.user;
-  var cart = req.session.cart;
-  logic.findAllProducts().then(function (products) {
-
+  // var cart = req.session.cart;
+  logic.findAllProducts()
+  .then(function (products) {
     res.render('index', {products: products, name: user})
   })
 });
@@ -143,7 +143,7 @@ router.get('/product/directory', function(req,res,next){
       var results = Promise.all([
         logic.findAllCategories()
         .then(function (categories) {
-          var answer = []
+        var answer = []
           categories.forEach(function (val) {
             var holder ={};
             holder.name = val.name;
@@ -162,7 +162,8 @@ router.get('/product/directory', function(req,res,next){
         })
       ])
       .then(function (results) {
-      res.render('directory')
+        console.log(results)
+      res.render('directory', {stuff: results})
     })
 })
 
