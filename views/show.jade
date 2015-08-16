@@ -6,37 +6,45 @@ block content
 
     div.jumbotron
       img(src=product.image_path alt='pic' height='300' width='300')
-    div.tile
-      div.product-block
-        p Name: #{product.name}
-        p Size: #{product.size}
-    div.tile
-      div.description
-        p Description:
-        p#desc= product.description
-    div.tile
-      div.seller-block
-        p Seller: 
-          a(href='/seller/'+ seller._id) #{seller.user_name}
-      
-        
-
-
-    if !update
-      if session
-        form(action='/offer/'+mainid , method='post')
-          div.tile
-            div.bid-group(id='offer')
-              label Bid
-              input.bid(type='number' name='bid' id='bidblock')
-              input.bid(type='submit' value='Submit Bid')
+    div.left
+      div.tile
+        div.product-block
+          p Name: #{product.name}
+          p Size: #{product.size}
+      div.tile
+        div.description
+          p Description:
+          p#desc= product.description
+    div.right
+      div.tile
+        div.seller-block
+          p Seller: 
+            a(href='/seller/'+ seller._id) #{seller.user_name}
+      if !update
+        div.tile
+          div.seller-block
+            p CURRENT BID: $#{offers}
+        if session
+          form(action='/offer/'+mainid , method='post')
+            div.tile
+              div.bid-group(id='offer')
+                label Enter Bid Amount
+                input.bid(type='number' name='bid' placeholder='$' id='bidblock')
+                input.bid(type='submit' value='Submit Bid')
       
     if update
       if session
-        p
-          a(href='/update/' + product._id) Update
-        p
-          a(href='/delete/' + product._id) Delete
-      if !session
-        p
-///if the req.session.user === seller.. then you can updata
+        div.right
+          div.tile
+            h3
+              a(href='/update/' + product._id) Update
+            h3
+              a(href='/delete/' + product._id) Delete
+  
+  footer
+    if !name
+      p ® Vontei : SkiShop
+    if name
+      p Hey #{name}
+  if !session
+    p

@@ -11,8 +11,7 @@ router.get('/', function(req, res, next) {
   var user = req.session.user;
 
   logic.findAllProducts().then(function (products) {
-    
-    res.render('index', {products: products, name: user})
+    res.render('index', {products: products.sort().reverse(), name: user})
   })
 });
 
@@ -228,7 +227,7 @@ router.get('/show/:id',function(req,res,next){
         logic.getUserById(product.seller)
       .then(function (seller) {
         var result = [seller,product]
-        res.render('show', {product: result[1], update: update, seller: result[0], mainid: req.params.id, session: isSession})
+        res.render('show', {offers: result[1].offers.sort().reverse()[0], product: result[1], update: update, seller: result[0], mainid: req.params.id, session: isSession})
         })
       })
     })

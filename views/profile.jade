@@ -28,29 +28,29 @@ block content
 
 
     h1 Hey #{user.user_name}
-      
-    div.row
-      h3 You have  #{info.length} items for sale:
-      table(class='table table-hover')
-        thead
-          th Name
-          th Offers
-          th Description
-          th Size 
-          th Image
-        tbody
-        each val in info
-          tr
-            td
-              a(href='/show/'+val._id)= val.name
-            td= val.offers
-            td= val.description
-            td= val.size
-            td
-              img(src=val.image_path alt='pic' height='50' width='50')
+    h3 You have  #{info.length} items for sale:
+    div.indexlist2 
+      div.row
+        table(class='table table-hover')
+          thead
+            th Name
+            th Offers
+            th Description
+            th Size 
+            th Image
+          tbody
+          each val in info
+            tr
+              td
+                a(href='/show/'+val._id)= val.name
+              td= val.offers
+              td= val.description
+              td= val.size
+              td
+                img(src=val.image_path alt='pic' height='50' width='50')
 
-    footer
-      if !name
-        p ® Vontei : SkiShop
-      if name
-        p Hey #{name}
+  footer
+    if !name
+      p ® Vontei : SkiShop
+    if name
+      p Hey #{name}
