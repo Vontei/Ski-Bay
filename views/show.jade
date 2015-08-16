@@ -1,40 +1,42 @@
 extends layout
 
 block content
+  div.padd
+    div.row
 
-  h1
-    a(href='/') Home
-  div.row
-    table(class='table table-hover' id='showOffer')
-      thead
-        th Name
-        th Description
-        th Size 
-        th Seller
-        th Image
-      tbody
-        tr
-          td= product.name
-          td= product.description
-          td= product.size
-          td= seller.user_name
-          td
-            img(src=product.image_path alt='pic' height='100' width='100')
+    div.jumbotron
+      img(src=product.image_path alt='pic' height='300' width='300')
+    div.tile
+      div.product-block
+        p Name: #{product.name}
+        p Size: #{product.size}
+    div.tile
+      div.description
+        p Description:
+        p#desc= product.description
+    div.tile
+      div.seller-block
+        p Seller: 
+          a(href='/seller/'+ seller._id) #{seller.user_name}
+      
+        
 
-  if !update
-    if session
-      form(action='/offer/'+mainid , method='post')
-        div.form-group(id='offer')
-          label Bid
-          input.form-control(type='number' name='bid')
-          input.form-control(type='submit' value='Make Offer')
-    
-  if update
-    if session
-      p
-        a(href='/update/' + product._id) Update
-      p
-        a(href='/delete/' + product._id) Delete
-    if !session
-      p
+
+    if !update
+      if session
+        form(action='/offer/'+mainid , method='post')
+          div.tile
+            div.bid-group(id='offer')
+              label Bid
+              input.bid(type='number' name='bid' id='bidblock')
+              input.bid(type='submit' value='Submit Bid')
+      
+    if update
+      if session
+        p
+          a(href='/update/' + product._id) Update
+        p
+          a(href='/delete/' + product._id) Delete
+      if !session
+        p
 ///if the req.session.user === seller.. then you can updata

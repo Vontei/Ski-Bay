@@ -1,5 +1,21 @@
 extends layout
 
 block content
-  a(href='/') Home
-  h1 update stuff
+  div.padd
+    h1 Update some stuff
+
+    form(action='/update/'+product._id method='post')
+      div.form-group
+        label Product Name
+        input.form-control(type='text' name='name' value=product.name)
+      div.form-group
+        label Select a Size
+        input.form-control(type='number' name='size' value=product.size)
+      div.form-group
+        label Product Description
+        textarea.form-control(rows='3' name='description') #{product.description}
+      div.form-group
+        label Link To Image
+        input.form-control(type='text' name='image' value=product.image_path)
+      
+      input(class='btn btn-default' type='submit' value='Submit')

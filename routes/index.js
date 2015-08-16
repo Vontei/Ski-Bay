@@ -6,15 +6,12 @@ var bcrypt = require('bcryptjs')
 var logic = require('../lib/logic.js')
 
 
-///Get the home page
+// TODO: show categories on this page, without changing anything in this route
 router.get('/', function(req, res, next) {
-  // logic.alltheproduct(function(err,data){
-  //   console.log(data)
-  // })
   var user = req.session.user;
-  // var cart = req.session.cart;
-  logic.findAllProducts()
-  .then(function (products) {
+
+  logic.findAllProducts().then(function (products) {
+    
     res.render('index', {products: products, name: user})
   })
 });
@@ -75,6 +72,23 @@ router.get('/product/new',function(req,res,next){
 })
 
 
+router.get('/seller/:id', function(req,res,next){
+    var user = req.session.user;
+    logic.getUserById(req.params.id)
+    .then(function(user){
+      logic.findAllProducts()
+      .then(function (products) {
+        var info= []
+        for(i=0; i<products.length;i++){
+          if(products[i].seller.toString()===user._id.toString()){
+            info.push(products[i])
+          }
+        }
+      res.render('seller',{user: user, info: info})
+    })
+  })
+
+})
 
 
 //Post the new product
@@ -118,53 +132,55 @@ router.post('/product/new', function(req,res,next){
 
 
 router.get('/product/directory', function(req,res,next){
-// var answer = [];
-// var promise = Promise.all([
-//     store.Categories.find({})
-//       .then(function (categories) {
-//         var obj = categories.map(function (e) {
-//           var result = {}
-//             result.name = e.name
-//             result.products = []
-//               for(i=0;i<e.productIds.length;i++){
-//                   store.Products.find({_id: e.productIds[i]}).then(function (product) {
-//                         result.products.push([product[0].name, product[0]._id])
-//                         answer.push(result)
-//                   })
-//               }
+//   var answer = []
+//    results =  Promise.all([
+//     logic.findAllCategories()
+//     .then(function (categories) {
+//        categories.forEach(function (val) {
+//         holder ={};
+//         holder.name = val.name;
+//         holder.products = []
+//          val.productIds.forEach(function (id) {
+//            logic.findProductById(id).then(function (product) {
+//            holder.products.push([product.name, product._id])
+//             return holder
+//           }).then(function (holder) {
+//             console.log( holder)
+//           })
 //         })
-//   })
-// ])
-// .then(function (results) {
-//       console.log(results)
+//         answer.push(holder)
+//       })
+//       console.log('these are the results', results)
+//       console.log('this is the answer',answer)
+//     }).then(function (thing) {
+//       console.log('This is the thing', thing)
+//       return thing
 //     })
-//       res.render('directory', {results: results})
-
-      var results = Promise.all([
-        logic.findAllCategories()
-        .then(function (categories) {
-        var answer = []
-          categories.forEach(function (val) {
-            var holder ={};
-            holder.name = val.name;
-            holder.products = []
-            val.productIds.forEach(function (id) {
-              logic.findProductById(id).then(function (product) {
-                holder.products.push([product.name, product._id])
-                console.log(holder)
-              })
-            })
-            answer.push(holder)
-          })
-          return answer
-        }).then(function (thing) {
-          return thing
+//   ])
+//   .then(function (results) {
+//     console.log(results)
+//   res.render('directory', {stuff: results})
+// })
+//
+  logic.findAllCategories()
+  .then(function (categories) {
+    logic.findAllProducts()
+  .then(function (products) {
+      var matches = []
+      products.forEach(function (product) {
+        store.Products.find({_id: {$in: productIds}}).then(function (matches) {
+          matches.push(matches)
         })
-      ])
-      .then(function (results) {
-        console.log(results)
-      res.render('directory', {stuff: results})
+      })
+  .then(function (matches) {
+          console.log(matches)
+        res.render('directory')
+      })
+
     })
+  })
+
+
 })
 
 
@@ -248,9 +264,18 @@ router.get('/delete/:id', function(req,res,next){
 //get the product update page. only if user is the same and req.session.user
 
 router.get('/update/:id', function(req,res,next){
-  res.render('update')
+  logic.findProductById(req.params.id).then(function (product) {
+  res.render('update', {product: product})
+  })
 })
 
+
+router.post('/update/:id', function(req,res,next){
+  logic.updateProduct(req.params.id, req.body.name, req.body.size, req.body.description).then(function () {
+
+  res.redirect('/profile')
+  })
+})
 
 
 

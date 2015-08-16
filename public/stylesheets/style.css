@@ -4,14 +4,27 @@ body {
   background-color: white;
 }
 
-
 h1{
 color:rgb(148, 238, 17) ;
  /*font-family: 'Pacifico', cursive;*/
 color: rgb(39, 186, 249);
-  font-family: 'Gloria Hallelujah', cursive;
+font-family: 'Gloria Hallelujah', cursive;
+padding: 0;
+margin: 0;
 }
 
+
+
+#bidblock{
+  background-color: rgb(121, 226, 39);
+  text-align: center;
+  height: 50px;
+}
+#heyName{
+  color: rgb(39, 186, 249);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 
 label{
 color: #939E9D;
@@ -21,19 +34,64 @@ span{
 color: rgb(214, 251, 31);
 }
 
+.bid-group{
+  width:100%;
+}
+
+.desc{
+  height: 150px;
+  overflow: scroll;
+}
+
 a {
   color:rgb(89, 36, 230);
   /*color: #00B7FF;*/
 }
+
+.bid{
+  width: 100%;
+  border: none;
+  background-color: rgb(11, 79, 230);
+  color: black;
+  height: 50px;
+}
+
+.bid:hover{
+  background-color: rgb(3, 12, 131);
+  color: white
+}
+
+.tile{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.product-block{
+  background-color:rgb(236, 231, 241);
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 2em;
+}
+
+.seller-block{
+  font-family: sans-serif;
+  font-size: 2em;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(236, 231, 241);
+  text-align: center;
+}
+
 
 footer{
   position: fixed;
   bottom: 0;
   height: 100px;
   /*background-color: rgb(59, 208, 35);*/
-      background-color: rgb(185, 238, 27) ;
-      background-color: rgb(8, 149, 240);
-      background-color: rgb(214, 251, 31);
+  background-color: rgb(185, 238, 27) ;
+  background-color: rgb(8, 149, 240);
+  background-color: rgb(214, 251, 31);
 
   margin-right: 50px;
   width: 93%;
@@ -41,6 +99,19 @@ footer{
   padding-top: 40px;
 
 }
+
+.description{
+  background-color: rgb(236, 231, 241);
+  font-size: 1.5em;
+  text-align: center;
+  padding: 20px;
+}
+
+.jumbotron{
+  background-color: white;
+  padding: 0;
+
+text-align: center;}
 
 
 .row{
@@ -57,13 +128,16 @@ footer{
 }
 
 #offer{
-  width: 25%;
+  width: 100%;
   margin: 0 auto;
   font-size: 25px;
+  height: 50px;
+  text-align: center;
 }
 
 #showOffer{
   font-size: 20px;
+  text-align: center;
 }
 
 #indexlist{
@@ -86,7 +160,7 @@ footer{
 }
 
 #fixbar{
-padding-bottom: 10px;
+/*padding-bottom: 10px;*/
 }
 
 
@@ -98,4 +172,11 @@ label{
 input{
   background-color: black;
   border: none;
+}
+
+
+.padd{
+  margin-top: 50px;
+  margin-left: 5em;
+  margin-right: 5em;
 }

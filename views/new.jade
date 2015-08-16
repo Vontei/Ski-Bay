@@ -1,63 +1,63 @@
 extends layout
 
 block content
-
-  div(class='navbar navbar-inverse navbar-fixed-top')
-    div.container
-    
+  div.padd
+    div(class='navbar navbar-inverse navbar-fixed-top')
+      div.container
       
-      //- h2.welcome Welcome to SkiBay #{name}
-      ul(class='nav navbar-nav')
-        li
-          h1 Sk
-            span i
-            | Bay
-        li
-          a(href='/') Home 
-        li
-          a(href='/profile') Profile
-      
-        li
-          a(href='/logout') Logout    
-        li
-          a(href='/user/new') Sign Up
-        li
-          a(href='/product/directory') Directory
+        
+        //- h2.welcome Welcome to SkiBay #{name}
+        ul(class='nav navbar-nav')
+          li
+            h1 Sk
+              span i
+              | Bay
+          li
+            a(href='/') Home 
+          li
+            a(href='/profile') Profile
+        
+          li
+            a(href='/logout') Logout    
+          li
+            a(href='/user/new') Sign Up
+          li
+            a(href='/product/directory') Directory
 
 
 
 
 
-  h1 Have some gear for sale? List it!
-  a(href='/') Home
-  if user
-    input(type='hidden' value=id name='postId')
-    form(action='/product/new' method='post')
-      div.form-group
-        label User 
-        input.form-control(type='text' name='user' value=user.user_name)    
-      div.form-group
-        label Select a category
-        select.form-control( id='category' name='category' multiple)
-          option(name='category' value='55ca1dcfc33efe1935fa4191') Skis
-          option(name='category' value='55ca1dd8c33efe1935fa4192') Bindings
-          option(name='category' value='55ca1de2c33efe1935fa4193') Boots
-          option(name='category' value='55ca1d4bc33efe1935fa418e') Atomic
-          option(name='category' value='55ca1d9bc33efe1935fa418f') Line
-          option(name='category' value='55ca1da7c33efe1935fa4190') Moment
-          option(name='category' value='55ca1dfbc33efe1935fa4194') k2
-          option(name='category' value='55ca1e0fc33efe1935fa4195') Salomon
-      div.form-group
-        label Product Name
-        input.form-control(type='text' name='name')
-      div.form-group
-        label Select a Size
-        input.form-control(type='number' name='size')
-      div.form-group
-        label Product Description
-        textarea.form-control(rows='3' name='description') 
-      div.form-group
-        label Link To Image
-        input.form-control(type='text' name='image')
-      
-      input(class='btn btn-default' type='submit' value='Submit')
+    h1 Have some gear for sale? List it!
+    a(href='/') Home
+    if user
+      input(type='hidden' value=id name='postId')
+      form(action='/product/new' method='post')
+        div.form-group
+          label User 
+          input.form-control(type='text' name='user' value=user.user_name)    
+        div.form-group
+          label Select a category
+          select.form-control( id='category' name='category' multiple)
+            option(name='category' value='55ca1dcfc33efe1935fa4191') Skis
+            option(name='category' value='55ca1dd8c33efe1935fa4192') Bindings
+            option(name='category' value='55ca1de2c33efe1935fa4193') Boots
+            option(name='category' value='55ca1d4bc33efe1935fa418e') Atomic
+            option(name='category' value='55ca1d9bc33efe1935fa418f') Line
+            option(name='category' value='55ca1da7c33efe1935fa4190') Moment
+            option(name='category' value='55ca1dfbc33efe1935fa4194') k2
+            option(name='category' value='55ca1e0fc33efe1935fa4195') Salomon
+        div.form-group
+          label Product Name
+          input.form-control(type='text' name='name')
+        div.form-group
+          label Select a Size
+          input.form-control(type='number' name='size')
+        div.form-group
+          label Product Description
+          textarea.form-control(rows='3' name='description') 
+        div.form-group
+          label Link To Image
+          input.form-control(type='text' name='image')
+        
+        input(class='btn btn-default' type='submit' value='Submit')

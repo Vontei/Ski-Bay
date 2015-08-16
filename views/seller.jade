@@ -1,0 +1,16 @@
+extends layout
+
+block content
+
+  div.padd
+    h1 Seller: #{user.user_name}
+    h4 Items for sale:
+      div.row
+        each val in info
+          div.col-md-6.col-md-3
+            a(href='/show/' + val._id ,class="thumbnail" )
+              img(src=val.image_path alt="...")
+            p= val.name
+            p= val.size
+            p.desc= val.description
+              

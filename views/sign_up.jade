@@ -1,37 +1,37 @@
 extends layout
 
 block content
-
-  div(class='navbar navbar-inverse navbar-fixed-top')
-    div.container
-      ul(class='nav navbar-nav')
-        li
-          h1 Sk
-            span i
-            | Bay
-        li
-          a(href='/') Home 
-        li
-          a(href='/product/directory') Directory
-
-
+  div.padd
+    div(class='navbar navbar-inverse navbar-fixed-top')
+      div.container
+        ul(class='nav navbar-nav')
+          li
+            h1 Sk
+              span i
+              | Bay
+          li
+            a(href='/') Home 
+          li
+            a(href='/product/directory') Directory
 
 
-  a(href='/') Home
-  h1 Sign Up for a Ski Bay Account
-  p Post, earn, buy.
-  
-  form(action='/user/new' method='post')
-    div.form-group
-      label User Name
-      input.form-control(type='text' name='user_name')
-    div.form-group
-      label Email 
-      input.form-control(type='text' name='email')
-    div.form-group
-      label Password
-      input.form-control(type='password' name='password')
-    div.form-group
-      label Confirm Password
-      input.form-control(type='password' name='confirm')
-    input(class='btn btn-default' type='submit' value='Start Shopping')
+
+
+    a(href='/') Home
+    h1 Sign Up for a Ski Bay Account
+    p Post, earn, buy.
+    
+    form(action='/user/new' method='post')
+      div.form-group
+        label User Name
+        input.form-control(type='text' name='user_name')
+      div.form-group
+        label Email 
+        input.form-control(type='text' name='email')
+      div.form-group
+        label Password
+        input.form-control(type='password' name='password')
+      div.form-group
+        label Confirm Password
+        input.form-control(type='password' name='confirm')
+      input(class='btn btn-default' type='submit' value='Start Shopping')
