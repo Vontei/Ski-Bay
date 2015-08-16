@@ -4,18 +4,15 @@ block content
   div.padd
     div(class='navbar navbar-inverse navbar-fixed-top')
       div.container
-      
-        
-        //- h2.welcome Welcome to SkiBay #{name}
         ul(class='nav navbar-nav')
           li
-            h1 Sk
-              span i
-              | Bay
+            a(href='/')
+              h1 Sk
+                span i
+                | Bay
+        
           li
-            a(href='/') Home 
-          li
-            a(href='/profile') Profile
+            a(href='/profile') #{user.user_name}'s Account
         
           li
             a(href='/logout') Logout    

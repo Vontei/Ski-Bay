@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  margin: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: white;
   padding-bottom: 50px;
@@ -15,11 +15,24 @@ margin: 0;
 }
 
 
+.whatever{
+  margin-left: 50px;
+}
+
+
+form ul li{
+
+  display: inline-block;
+  padding-left: 10px;
+}
 
 #bidblock{
   background-color: rgb(112, 112, 112);
   text-align: center;
   height: 50px;
+  background-color: white;
+  border: 1px solid rgb(227, 227, 227);
+  color: black;
 }
 #heyName{
   color: rgb(39, 186, 249);
@@ -51,15 +64,14 @@ a {
 
 .bid{
   width: 100%;
-  border: none;
   background-color: rgb(18, 170, 245);
-  color: black;
+  color: white;
   height: 50px;
 
 }
 
 .bid:hover{
-  background-color: rgb(3, 12, 131);
+  background-color: rgb(13, 237, 42);
   color: white
 }
 
@@ -97,6 +109,7 @@ footer{
   background-color: rgb(185, 238, 27) ;
   background-color: rgb(8, 149, 240);
   background-color: rgb(214, 251, 31);
+  background-color: #D0F124;
 
   margin-right: 50px;
   width: 93%;
@@ -162,7 +175,7 @@ text-align: center;}
 
 #login{
   float:right;
-  width:50%;
+  width:60%;
   color: white;
 }
 
@@ -170,9 +183,31 @@ text-align: center;}
   margin-top:75px;
 }
 
-#fixbar{
-/*padding-bottom: 10px;*/
+.fixbar{
+position: fixed;
+background-color: black;
+padding-top: 15px;
+margin-top: -50px;
+margin-left: -50px;
+margin-right: -50px;
+width: 100%;
+padding-bottom: 10px;
+z-index: 1;
 }
+
+
+
+  .whatever{
+    margin-left: 50px;
+  }
+
+
+.fixbar ul li{
+    display: inline-block;
+    padding-left: 10px;
+  }
+
+
 
 .crud{
   background-color: gray;

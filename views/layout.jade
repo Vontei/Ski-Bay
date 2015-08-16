@@ -6,47 +6,58 @@ html
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
-
-    div(class='navbar navbar-inverse navbar-fixed-top')
-      div.container
-        if name
-          ul(class='nav navbar-nav')
-            li
-              a(class='navbar-brand' href='/')
-                h1 Sk
-                  span i
-                  | Bay
-            li 
-              p(class='navbar-text' id='heyName') Hey #{name}
-            li
-              a(href='/profile') Profile
-            li  
-              a(href='/product/new') Sell 
-            li
-              a(href='/logout') Logout    
-            li
-              a(href='/product/directory') Directory
-          ul(class='nav navbar-nav navbar-right' id='right-nav')
-            
-        if !name 
-          div(class='navbar navbar-inverse navbar-fixed-top' id='fixbar')
-            form.form-inline(action='/login' method='post' id='login')
-              div.form-group
-                label User_Name
-                input.form-control(type='text' name='user_name')
-              div.form-group
-                label Password 
-                input.form-control(type='password' name='password')
-                input.form-control(type='submit' value='Login' class='btn btn-default')
-                a(href='/user/new') Sign Up
-            div.container
-              a(href='/')
-                h1 Sk
-                  span i
-                  | Bay
+    div(class='nav')
+      //- if name
+      //-   div.fixbar
+      //-     ul
+      //-       li
+      //-         a(class='brand' href='/')
+      //-           h1 Sk
+      //-             span i
+      //-             | Bay
+      //-       li 
+      //-         p(class='' id='heyName') Hey #{name}
+      //-       li
+      //-         a(href='/profile') Profile
+      //-       li  
+      //-         a(href='/product/new') Sell 
+      //-       li
+      //-         a(href='/logout') Logout    
+      //-       li
+      //-         a(href='/product/directory') Directory
           
-                  
+      if !name 
+        div(class='fixbar')
+          form(action='/login' method='post' id='login')
+            ul
+              li
+                a(href='/user/new') Sign Up  
+              li
+                label User_Name
+              li
+                input.form-control(type='text' name='user_name')
+              li
+                label Password
+              li 
+                input.form-control(type='password' name='password')
+              li
+                input.form-control(type='submit' value='Login' class='btn btn-default')
+            
+          div.whatever
+            a(href='/')
+              h1 Sk
+                span i
+                | Bay
         
+                  
+    block content    
       
-    //- 
+
+
+
+
+
+
+
+
+    

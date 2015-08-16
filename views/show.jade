@@ -32,14 +32,17 @@ block content
                 input.bid(type='number' name='bid' placeholder='$' id='bidblock')
                 input.bid(type='submit' value='Submit Bid')
       
-    if update
-      if session
-        div.right
-          div.tile
-            h3
-              a(href='/update/' + product._id) Update
-            h3
-              a(href='/delete/' + product._id) Delete
+      if update
+        div.tile
+          div.seller-block
+            p CURRENT BID: $#{offers}
+        if session
+          div.right
+            div.tile
+              h3
+                a(href='/update/' + product._id) Update
+              h3
+                a(href='/delete/' + product._id) Delete
   
   footer
     if !name

@@ -9,8 +9,13 @@ var logic = require('../lib/logic.js')
 // TODO: show categories on this page, without changing anything in this route
 router.get('/', function(req, res, next) {
   var user = req.session.user;
+    // logic.allTheThings().then(function (things) {
+    //   console.log(things)
+
+
 
   logic.findAllProducts().then(function (products) {
+    console.log(products)
     res.render('index', {products: products.sort().reverse(), name: user})
   })
 });
@@ -42,7 +47,8 @@ router.get('/logout', function(req,res,next){
 
 ///Get the sign up page
 router.get('/user/new',function(req,res,next){
-  res.render('sign_up')
+  var user = req.session.user
+  res.render('sign_up' ,{user: user})
 })
 
 
