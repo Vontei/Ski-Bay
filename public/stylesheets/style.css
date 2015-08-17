@@ -6,12 +6,12 @@ body {
 }
 
 h1{
-color:rgb(148, 238, 17) ;
- /*font-family: 'Pacifico', cursive;*/
-color: rgb(39, 186, 249);
-font-family: 'Gloria Hallelujah', cursive;
-padding: 0;
-margin: 0;
+  color:rgb(148, 238, 17) ;
+   /*font-family: 'Pacifico', cursive;*/
+  color: rgb(39, 186, 249);
+  font-family: 'Gloria Hallelujah', cursive;
+  padding: 0;
+  margin: 0;
 }
 
 
@@ -58,8 +58,7 @@ color: rgb(214, 251, 31);
 }
 
 a {
-  color:rgb(89, 36, 230);
-  /*color: #00B7FF;*/
+  color: #00B7FF;
 }
 
 .bid{
@@ -130,8 +129,8 @@ footer{
 .jumbotron{
   background-color: white;
   padding: 0;
-
-text-align: center;}
+  text-align: center;
+}
 
 
 .row{
@@ -184,28 +183,28 @@ text-align: center;}
 }
 
 .fixbar{
-position: fixed;
-background-color: black;
-padding-top: 15px;
-margin-top: -50px;
-margin-left: -50px;
-margin-right: -50px;
-width: 100%;
-padding-bottom: 10px;
-z-index: 1;
+  position: fixed;
+  background-color: black;
+  padding-top: 15px;
+  margin-top: -50px;
+  margin-left: -50px;
+  margin-right: -50px;
+  width: 100%;
+  padding-bottom: 10px;
+  z-index: 1;
 }
 
 
 
-  .whatever{
-    margin-left: 50px;
-  }
+.whatever{
+  margin-left: 50px;
+}
 
 
 .fixbar ul li{
-    display: inline-block;
-    padding-left: 10px;
-  }
+  display: inline-block;
+  padding-left: 10px;
+}
 
 
 
@@ -224,6 +223,9 @@ z-index: 1;
   float: right;
 }
 
+ul{
+  padding-top: 10px;
+}
 
 
 label{
@@ -241,4 +243,5 @@ input{
   margin-left: 5em;
   margin-right: 5em;
   margin-bottom: 10em;
+  padding-bottom: 5em;
 }

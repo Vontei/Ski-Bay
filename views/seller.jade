@@ -3,6 +3,23 @@ extends layout
 block content
 
   div.padd
+    div(class='navbar navbar-inverse navbar-fixed-top')
+      div.container
+        ul(class='nav navbar-nav')
+          li
+            a(href='/')
+              h1 Sk
+                span i
+                | Bay
+            
+          li  
+            a(href='/product/new') Sell 
+          li
+            a(href='/logout') Logout    
+          li
+            a(href='/user/new') Sign Up
+          li
+            a(href='/product/directory') Directory
     h1 Seller: #{user.user_name}
     h4 Items for sale:
     div.row
@@ -14,5 +31,6 @@ block content
           h3= val.name
           p= val.size
           p.desc= val.description
-  div.tile
+
       
+  

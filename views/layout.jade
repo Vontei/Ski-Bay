@@ -7,25 +7,6 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div(class='nav')
-      //- if name
-      //-   div.fixbar
-      //-     ul
-      //-       li
-      //-         a(class='brand' href='/')
-      //-           h1 Sk
-      //-             span i
-      //-             | Bay
-      //-       li 
-      //-         p(class='' id='heyName') Hey #{name}
-      //-       li
-      //-         a(href='/profile') Profile
-      //-       li  
-      //-         a(href='/product/new') Sell 
-      //-       li
-      //-         a(href='/logout') Logout    
-      //-       li
-      //-         a(href='/product/directory') Directory
-          
       if !name 
         div(class='fixbar')
           form(action='/login' method='post' id='login')
@@ -42,14 +23,11 @@ html
                 input.form-control(type='password' name='password')
               li
                 input.form-control(type='submit' value='Login' class='btn btn-default')
-            
           div.whatever
             a(href='/')
               h1 Sk
                 span i
-                | Bay
-        
-                  
+                | Bay              
     block content    
       
 

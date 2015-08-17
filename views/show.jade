@@ -2,6 +2,28 @@ extends layout
 
 block content
   div.padd
+    if session
+      div(class='navbar navbar-inverse navbar-fixed-top')
+        div.container
+
+          ul(class='nav navbar-nav')
+            li
+              a(href='/')
+                h1 Sk
+                  span i
+                  | Bay
+            li
+              a(href='/profile') #{session}'s Account
+            li  
+              a(href='/product/new') Sell 
+            li
+              a(href='/logout') Logout    
+            li
+              a(href='/user/new') Sign Up
+            li
+              a(href='/product/directory') Directory
+
+    
     div.row
 
     div.jumbotron
@@ -18,8 +40,9 @@ block content
     div.right
       div.tile
         div.seller-block
-          p Seller: 
-            a(href='/seller/'+ seller._id) #{seller.user_name}
+          if session
+            p Seller: 
+              a(href='/seller/'+ seller._id) #{seller.user_name}
       if !update
         div.tile
           div.seller-block
@@ -43,7 +66,6 @@ block content
                 a(href='/update/' + product._id) Update
               h3
                 a(href='/delete/' + product._id) Delete
-  
   footer
     if !name
       p ® Vontei : SkiShop

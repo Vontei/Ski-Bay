@@ -6,17 +6,56 @@ var bcrypt = require('bcryptjs')
 var logic = require('../lib/logic.js')
 
 
-// TODO: show categories on this page, without changing anything in this route
 router.get('/', function(req, res, next) {
-  var user = req.session.user;
-    // logic.allTheThings().then(function (things) {
-    //   console.log(things)
+  // var user = req.session.user;
+  // store.Products.find({})
+  //     .then(function (products) {
+  //       return productCatIds = products.map(function (product) {
+  //         return product.category_id
+  //       })
+  //     }).then(function (idArray) {
+  //         console.log('id array',idArray)
+  //           return idArray
+  //     }).then(function (categories) {
+  //        console.log('cats', categories)
+  //         res.render('index', {products: products.sort().reverse(), name: user, cats: categories})
+  //     })
 
+  var outer = []
+  store.Products.find({}).then(function (products) {
+    var outer = []
+    array = products.map(function (prod) {
+      var object = {}
+      object.name = prod.name
+      object.size = prod.size
+      object.categories = prod.category_id
+      outer.push(object)
+    })
+      return outer
+    }).then(function (object) {
+      console.log('new goal', object)
+      return store.Categories.find({}).then(function (cats) {
+        return catIds = cats.map(function (e) {
+          return e._id
+        })
+      }).then(function (catIdArray) {
+        console.log('cats', catIdArray)
+        return object.forEach(function (product) {
+          return store.Categories.find({}).then(function (categories) {
+            return categories.forEach(function (cat) {
+              return product.categories.forEach(function (id) {
+              if(cat._id.toString() === id.toString()){
+                 product.names = cat.name
+               }
+              })
 
-
-  logic.findAllProducts().then(function (products) {
-    console.log(products)
-    res.render('index', {products: products.sort().reverse(), name: user})
+            })
+          })
+        })
+      }).then(function (obj) {
+        console.log(obj)
+        res.render('index')
+      })
   })
 });
 

@@ -10,7 +10,6 @@ block content
               h1 Sk
                 span i
                 | Bay
-        
           li
             a(href='/profile') #{user.user_name}'s Account
         
@@ -20,13 +19,7 @@ block content
             a(href='/user/new') Sign Up
           li
             a(href='/product/directory') Directory
-
-
-
-
-
     h1 Have some gear for sale? List it!
-  
     if user
       input(type='hidden' value=id name='postId')
       form(action='/product/new' method='post')
