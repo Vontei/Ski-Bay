@@ -33,28 +33,30 @@ router.get('/', function(req, res, next) {
     })
       return outer
     }).then(function (object) {
-      console.log('new goal', object)
+      console.log('OBJECT', object)
       return store.Categories.find({}).then(function (cats) {
         return catIds = cats.map(function (e) {
           return e._id
         })
       }).then(function (catIdArray) {
-        console.log('cats', catIdArray)
+        console.log('category Id Array', catIdArray)
         return object.forEach(function (product) {
           return store.Categories.find({}).then(function (categories) {
             return categories.forEach(function (cat) {
               return product.categories.forEach(function (id) {
               if(cat._id.toString() === id.toString()){
                  product.names = cat.name
+                 object.push(product)
                }
+              console.log('end product', object)
+              return object
               })
-
             })
+          }).then(function (obj) {
+            console.log('ENDDDDDDDD', obj)
+            res.render('index')
           })
         })
-      }).then(function (obj) {
-        console.log(obj)
-        res.render('index')
       })
   })
 });
