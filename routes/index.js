@@ -77,33 +77,43 @@ router.get('/seller/:id', function(req,res,next){
 })
 
 
-//Post the new product
+// //Post the new product
+// router.post('/product/new', function(req,res,next){
+//   store.Users.findOne({user_name: req.session.user})
+//   .then(function(user){
+//     logic.addProduct(user._id, req.body.name, req.body.size, req.body.description,
+//     req.body.image, req.body.category)
+//   })
+//   .then(function(){
+//       return logic.findProductByDesc(req.body.description)
+//   })
+//   .then(function(product){
+//     logic.findAllCategories()
+//     .then(function(cats){
+//       for(i=0;i<cats.length;i++){
+//         for(j=0;j<product.category_id.length;j++){
+//           if(cats[i]._id.toString() === product.category_id[j]){
+//           logic.findCategory(cats[i]._id)
+//             .then(function (cat) {
+//               cat.productIds.push(product._id);
+//               return logic.addProductToCategory(cat._id, product._id)
+//             })
+//           }
+//         }
+//       }
+//       res.redirect('/')
+//     })
+//   })
+// })
+
+
+
 router.post('/product/new', function(req,res,next){
-  store.Users.findOne({user_name: req.session.user})
-  .then(function(user){
-    logic.addProduct(user._id, req.body.name, req.body.size, req.body.description,
-    req.body.image, req.body.category)
-  })
-  .then(function(){
-      return logic.findProductByDesc(req.body.description)
-  })
-  .then(function(product){
-    logic.findAllCategories()
-    .then(function(cats){
-      for(i=0;i<cats.length;i++){
-        for(j=0;j<product.category_id.length;j++){
-          if(cats[i]._id.toString() === product.category_id[j]){
-          logic.findCategory(cats[i]._id)
-            .then(function (cat) {
-              cat.productIds.push(product._id);
-              return logic.addProductToCategory(cat._id, product._id)
-            })
-          }
-        }
-      }
+  logic.postNewProduct(req.body.user, req.body.name,req.body.size,
+    req.body.description,req.body.image, req.body.category)
+    .then(function () {
       res.redirect('/')
     })
-  })
 })
 
 
