@@ -16,3 +16,16 @@ return store.Products.find({}).then(function (products) {
     return products
   })
 })
+
+
+
+// return getUserByName(reqUser).then(function (user) {
+//   return findProductById(reqParamsId).then(function(product){
+//     product.category.forEach(function () {
+//       var cats = []
+//       findCategory(id).then(function(cat){
+//         cats.push(cat.name)
+//       })
+//     })
+//     product.categories.push(cats)
+//

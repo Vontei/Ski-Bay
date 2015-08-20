@@ -1,13 +1,9 @@
 extends layout
 
 block content
-
   div.padd
     div(class='navbar navbar-inverse navbar-fixed-top')
-      div.container
-      
-        
-        //- h2.welcome Welcome to SkiBay #{name}
+      div.container      
         ul(class='nav navbar-nav')
           li
             a(href='/')
@@ -22,10 +18,6 @@ block content
             a(href='/logout') Logout    
           li
             a(href='/user/new') Sign Up
-          li
-            a(href='/product/directory') Directory
-
-
     h1 Hey #{user.user_name}
     h3 You have  #{info.length} items for sale:
     div.indexlist2 
@@ -47,7 +39,6 @@ block content
               td= val.size
               td
                 img(src=val.image_path alt='pic' height='50' width='50')
-
   footer
     if !name
       p ® Vontei : SkiShop

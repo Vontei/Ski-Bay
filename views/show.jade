@@ -5,7 +5,6 @@ block content
     if session
       div(class='navbar navbar-inverse navbar-fixed-top')
         div.container
-
           ul(class='nav navbar-nav')
             li
               a(href='/')
@@ -20,12 +19,7 @@ block content
               a(href='/logout') Logout    
             li
               a(href='/user/new') Sign Up
-            li
-              a(href='/product/directory') Directory
-
-    
     div.row
-
     div.jumbotron
       img(src=product.image_path alt='pic' height='300' width='300')
     div.left
@@ -54,7 +48,6 @@ block content
                 label Enter Bid Amount
                 input.bid(type='number' name='bid' placeholder='$' id='bidblock')
                 input.bid(type='submit' value='Submit Bid')
-      
       if update
         div.tile
           div.seller-block

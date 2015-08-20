@@ -19,38 +19,50 @@ router.post('/login', function(req,res,next){
     if (bcrypt.compareSync(req.body.password, user.password)) {
       req.session.user = user.user_name
       res.redirect('/');
+    } else {
+      res.render('index', {error:'Invalid User Name or Password'})
     }
   })
 })
 
 
-///logout
 router.get('/logout', function(req,res,next){
   req.session = null;
   res.redirect('/')
 })
 
 
-///Get the sign up page
 router.get('/user/new',function(req,res,next){
   var user = req.session.user
   res.render('sign_up' ,{user: user})
 })
 
-////Create a user
+
 router.post('/user/new',function(req,res,next){
-  var hash = bcrypt.hashSync(password, 8);
-  if(req.body.password != req.body.confirm){
-    res.render('sign_up', {error: "Passwords do not match"})
+  var error =[]
+  if(req.body.user_name.length<2 ){
+    error.push('Your Name cannot be empty')
   }
-  if(password === req.body.confirm) {
-    logic.addUser(req.body.user_name, req.body.email, hash)
-    res.redirect('/')
+  if(req.body.email.length<2){
+    error.push('Your email cannot be empty')
   }
+  if(req.body.password.length<2){
+      error.push('Your passwords cannot be empty')
+  }
+  if(req.body.confirm.length<2 || reqConfirm != reqPw){
+    error.push('Your passwords do not match')
+  }
+  if(error.length>=1){
+    res.render('sign_up', {signUpError: error})
+  } else {
+      var hash = bcrypt.hashSync(req.body.password, 8);
+        logic.addUser(req.body.user_name, req.body.email, hash).then(function(){
+          res.redirect('/')
+        })
+    }
 })
 
 
-//Get the new product page
 router.get('/product/new',function(req,res,next){
   if(req.session.user){
     logic.getUserByName(req.session.user).then(function(user){
@@ -63,7 +75,8 @@ router.get('/product/new',function(req,res,next){
 router.get('/seller/:id', function(req,res,next){
     var user = req.session.user;
     logic.getUserById(req.params.id)
-    .then(function(user){logic.findAllProducts()
+    .then(function(user){
+      logic.findAllProducts()
       .then(function (products) {
         var info= []
         for(i=0; i<products.length;i++){
@@ -77,37 +90,6 @@ router.get('/seller/:id', function(req,res,next){
 })
 
 
-// //Post the new product
-// router.post('/product/new', function(req,res,next){
-//   store.Users.findOne({user_name: req.session.user})
-//   .then(function(user){
-//     logic.addProduct(user._id, req.body.name, req.body.size, req.body.description,
-//     req.body.image, req.body.category)
-//   })
-//   .then(function(){
-//       return logic.findProductByDesc(req.body.description)
-//   })
-//   .then(function(product){
-//     logic.findAllCategories()
-//     .then(function(cats){
-//       for(i=0;i<cats.length;i++){
-//         for(j=0;j<product.category_id.length;j++){
-//           if(cats[i]._id.toString() === product.category_id[j]){
-//           logic.findCategory(cats[i]._id)
-//             .then(function (cat) {
-//               cat.productIds.push(product._id);
-//               return logic.addProductToCategory(cat._id, product._id)
-//             })
-//           }
-//         }
-//       }
-//       res.redirect('/')
-//     })
-//   })
-// })
-
-
-
 router.post('/product/new', function(req,res,next){
   logic.postNewProduct(req.body.user, req.body.name,req.body.size,
     req.body.description,req.body.image, req.body.category)
@@ -115,8 +97,6 @@ router.post('/product/new', function(req,res,next){
       res.redirect('/')
     })
 })
-
-
 
 
 router.get('/profile', function(req,res,next){
@@ -131,6 +111,10 @@ router.get('/show/:id',function(req,res,next){
   var isSession = req.session.user
   var update = false
   logic.getSellerAndProduct(isSession, req.params.id).then(function (result) {
+    if(isSession.toString()===result[0].user_name.toString()){
+      update = true
+    }
+    console.log(result)
     res.render('show', {
            offers: result[1].offers.sort().reverse()[0],
            product: result[1],
@@ -144,9 +128,7 @@ router.get('/show/:id',function(req,res,next){
 
 ///make an offer
 router.post('/offer/:id',function(req,res,next){
-  var productId = req.params.id;
-  var bid = req.body.bid;
-  logic.addOffersToProduct(productId, bid).then(function () {
+  logic.addOffersToProduct(req.params.id, req.body.bid).then(function () {
     res.redirect('/')
   })
 })

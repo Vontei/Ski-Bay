@@ -10,12 +10,14 @@ block content
               h1 Sk
                 span i
                 | Bay
-          li  
-            a(href='/product/new') Sell 
-          li
-            a(href='/product/directory') Directory
     h1 Sign Up for a Ski Bay Account
     p
+    div(class='signUpError')
+     if signUpError
+       p Please correct errors below
+       each val in signUpError
+         ul
+           li= val
     h3 Post, earn, buy.
     form(action='/user/new' method='post')
       div.form-group

@@ -3,7 +3,6 @@ extends layout
 block content
   div.padd
     h1 Update some stuff
-
     form(action='/update/'+product._id method='post')
       div.form-group
         label Product Name
@@ -17,5 +16,4 @@ block content
       div.form-group
         label Link To Image
         input.form-control(type='text' name='image' value=product.image_path)
-      
       input(class='btn btn-default' type='submit' value='Submit')
