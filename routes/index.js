@@ -111,10 +111,10 @@ router.get('/show/:id',function(req,res,next){
   var isSession = req.session.user
   var update = false
   logic.getSellerAndProduct(isSession, req.params.id).then(function (result) {
-    if(isSession.toString()===result.user_name.toString()){
+    console.log(result.sellerObj.user_name)
+    if(isSession.toString()===result.sellerObj.user_name.toString()){
       update = true
     }
-    console.log(result)
     res.render('show', {
            offers: result.offers.sort().reverse(),
            product: result,
@@ -122,6 +122,8 @@ router.get('/show/:id',function(req,res,next){
            seller: result,
            mainid: req.params.id,
            session: isSession})
+    }).end(function (err) {
+      throw err
     })
 })
 
